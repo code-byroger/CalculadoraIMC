@@ -1,0 +1,71 @@
+import Classes.CalculadoraIMC;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class CalculandoImcTeste {
+    private CalculadoraIMC imc;
+    @BeforeEach
+    public void setUp(){
+        this.imc = new CalculadoraIMC(45, 1.64);
+    }
+    @Test
+    public void testandoPeso_acimados40(){
+        imc.setPeso(110);
+        String estatusEsperado = "Obesidade III(mórbidade)";
+        assertEquals(estatusEsperado, imc.classificacao());
+    }
+    @Test
+    public void testandoPeso_de35_ate39_99(){
+        imc.setPeso(64);
+        String estatusEsperado = "Obesidade II(severa)";
+        assertEquals(estatusEsperado, imc.classificacao());
+    }
+    @Test
+    public void testandoPeso_de30_ate34_99(){
+
+        String estatusEsperado = "Obesidade I";
+        assertEquals(estatusEsperado, imc.classificacao());
+    }
+    @Test
+    public void testandoPeso_de25_ate29_99(){
+        String estatusEsperado = "Acima do peso";
+        assertEquals(estatusEsperado, imc.classificacao());
+    }
+    @Test
+    public void testandoPeso_de18_5ate24_99(){
+        String estatusEsperado = "Peso normal";
+        assertEquals(estatusEsperado, imc.classificacao());
+    }
+    @Test
+    public void testandoPeso_de17_ate18_49(){
+        String estatusEsperado = "Abaixo do peso";
+        assertEquals(estatusEsperado, imc.classificacao());
+    }
+    @Test
+    public void testandoPeso_abaixo_que17(){
+        String statusEsperado = "Muito abaixo do peso";
+        assertEquals(statusEsperado, imc.classificacao());
+    }
+
+    //Teste do getters e setters
+    @Test
+    public void testePeso(){
+        imc.setPeso(64);
+        double peso = imc.getPeso();
+        assertEquals(peso, imc.getPeso());
+    }
+    @Test
+    public void testeAltura(){
+        imc.setAltura(1.64);
+        double altura = imc.getAltura();
+        assertEquals(altura, imc.getAltura());
+    }
+    @Test
+    public void testCacalar(){
+        imc.setPeso(49);
+        imc.setAltura(1.64);
+        double calcular = imc.getCalculandoImc();
+        assertEquals(calcular,imc.getCalculandoImc());
+    }
+}
