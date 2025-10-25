@@ -1,0 +1,58 @@
+package Classes;
+
+public class CalculadoraIMC {
+    private double peso;
+    private double altura;
+
+    //metodo
+    public double getCalculandoImc(){
+        if(peso <= 0.0 || altura <= 0.0){
+            return 0.0;
+        }
+        double imc = peso / (altura * altura);
+        return imc;
+    }
+
+    public String  classificacao(){
+
+
+        double imc = getCalculandoImc();
+        if(imc == 0.0){
+            return "Insira valores válidos";
+        }
+
+        if(imc >= 40.00){
+            return "Obesidade III(mórbidade)";
+        }
+        else if (imc >= 35.00 && imc <=39.99){
+            return "Obesidade II(severa)";
+        }
+        else if(imc >=30.00 && imc <=34.99){
+            return "Obesidade I";
+        }
+        else if(imc >=25.00 && imc <=29.99){
+            return "Acima do peso";
+        }
+        else if(imc >=18.5 && imc <=24.99){
+            return "Peso normal";
+        }
+        else if(imc >=17 && imc <=18.49){
+            return "Abaixo do peso";
+        }
+        else{
+            return"Muito abaixo do peso";
+        }
+    }
+    //Construtores
+    public CalculadoraIMC(double peso, double altura){
+        this.peso = peso;
+        this.altura = altura;
+    }
+    public CalculadoraIMC(){}
+
+    //getters e setters
+    public double getPeso(){return peso;}
+    public void setPeso(double peso){this.peso = peso;}
+    public double getAltura(){return altura;}
+    public void setAltura(double altura){this.altura = altura;}
+}
