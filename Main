@@ -1,0 +1,68 @@
+import javafx.application.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+import Classes.*;
+public class Main extends Application {
+    CalculadoraIMC Imc = new CalculadoraIMC();
+
+    @Override
+    public void start(Stage palco){
+        //Etiquetas para entrada
+        Label etiquetaPeso = new Label("Peso:");
+        Label etiquetaAltura = new Label("Altura:");
+
+        TextField campoPeso = new TextField();
+        //Coloca uma etiqueta dentro do campo
+        campoPeso.setPromptText("Peso em Kg");
+        TextField campoAltura = new TextField();
+        campoAltura.setPromptText("Altura em metros");
+
+        //Label para mostrar o resultado
+        Label etiquetaResultado = new Label();
+        Label etiquetaClassificacao = new Label();
+
+        Button botaoCalcular = new Button("Calcular");
+        //Colocando evento no botal
+        botaoCalcular.setOnAction(e-> {
+            //Transformando o que foi digitado em campoPeso em double
+            try{
+                //Atualizando valores dentro do objeto imc
+                //.replace('primeiro','segundo' = modifica o os argumentos
+                double pesoLido = Double.parseDouble(campoPeso.getText().replace(',','.'));
+                Imc.setPeso(pesoLido);
+
+                double alturaLida = Double.parseDouble(campoAltura.getText().replace(',','.'));
+                Imc.setAltura(alturaLida);
+                //calculando imc
+                double imc = Imc.getCalculandoImc();
+                //Atualizando etiqueta do resultado
+                etiquetaResultado.setText(String.format("Seu IMC é: %.2f", imc));
+                //Atualizando etiqueta da classificação
+                etiquetaClassificacao.setText(String.format("Você está %s: ", Imc.classificacao()));
+            }catch (NumberFormatException ex){
+                etiquetaResultado.setText("Erro: Insira números válidos " + ex.getMessage());
+                etiquetaClassificacao.setText("");
+            }
+
+        });
+        //Layout vertical
+        VBox layout = new VBox(10, etiquetaPeso, campoPeso,etiquetaAltura, campoAltura, botaoCalcular, etiquetaResultado, etiquetaClassificacao);
+        //Colocando espaçamento de 10px
+        layout.setPadding(new Insets(10));
+        //Alinhando ao centro
+        layout.setAlignment(Pos.CENTER);
+
+        //Cena e palco
+        Scene cena = new Scene (layout, 300,250);
+        palco.setTitle("Calculadora de IMC");
+        palco.setScene(cena);
+        palco.show();
+    }
+
+    public static void main(String[] args){
+        launch(args);
+    }
+}
